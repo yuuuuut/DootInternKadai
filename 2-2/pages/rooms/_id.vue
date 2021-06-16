@@ -27,22 +27,18 @@
 
         <v-row class="form__container" no-gutters>
           <v-col cols="10">
-            <div class="d-flex">
+            <div class="d-flex align-center">
               <v-textarea
+                label="メッセージ"
+                no-resize
+                rows="2"
                 v-model="message"
-                label="Outlined"
-                placeholder="Placeholder"
-                outlined
-                height="40px"
-                dense
               ></v-textarea>
-
               <v-btn
                 @click="sendMessage"
                 :disabled="!this.message"
                 class="ml-3"
                 depressed
-                height="40px"
                 color="primary"
               >
                 送信
