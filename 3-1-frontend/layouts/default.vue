@@ -27,7 +27,10 @@
       </v-app-bar>
     </header>
     <v-main>
-      <Nuxt />
+      <div>
+        <Nuxt />
+        <Loading />
+      </div>
     </v-main>
   </v-app>
 </template>
@@ -35,7 +38,12 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
+import Loading from '../components/Loading.vue'
+
 export default {
+  components: {
+    Loading
+  },
   computed: {
     ...mapGetters({
       isLogin: 'auth/isLogin',
