@@ -1,4 +1,4 @@
-json.rooms @rooms do |room|
+json.rooms @add_information_rooms do |room|
   json.id                   room['id']
   json.unread_message_count room[:unread_message_count]
 
@@ -14,3 +14,5 @@ json.rooms @rooms do |room|
     end
   end
 end
+
+json.pagination @pagination

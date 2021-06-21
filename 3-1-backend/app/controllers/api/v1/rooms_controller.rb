@@ -1,10 +1,14 @@
 class Api::V1::RoomsController < Api::V1::ApplicationController
+  include Pagination
+
   before_action :authenticate_user!
   before_action :set_room, only: %i[show]
   before_action :room_in_current_user, only: %i[show]
 
   def index
-    @rooms = Room.room_add_necessary_information(current_user)
+    @rooms = current_user.rooms.preload(:users, :messages).page(params[:page]).per(3)
+    @add_information_rooms = Room.room_add_necessary_information(@rooms, current_user)
+    @pagination = resources_with_pagination(@rooms)
   end
 
   def show; end
