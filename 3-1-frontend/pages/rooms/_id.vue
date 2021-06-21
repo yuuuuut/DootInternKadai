@@ -76,6 +76,7 @@ export default {
       )
 
       this.messages.push(response.data.message)
+      this.message = ''
       this.scrollToBottom()
     },
     scrollToBottom() {
