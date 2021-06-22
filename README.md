@@ -11,7 +11,7 @@ TZ=Japan
 docker-compose run backend rails db:seed
 ```
 ```
-docker-compose run backend rails db:seed
+docker-compose up
 ```
 
 ### 3-1-frontend
