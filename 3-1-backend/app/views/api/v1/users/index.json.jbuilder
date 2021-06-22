@@ -3,3 +3,5 @@ json.users @users do |user|
   json.name  user.name
   json.image user.image || 'https://cdn.vuetifyjs.com/images/john.jpg'
 end
+
+json.pagination @pagination

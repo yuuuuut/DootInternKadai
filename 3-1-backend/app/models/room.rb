@@ -25,9 +25,9 @@ class Room < ApplicationRecord
     end
   end
 
-  #
-  def self.room_add_necessary_information(current_user)
-    current_user.rooms.preload(:users, :messages).map do |r|
+  # roomに必要な情報を付与する。
+  def self.room_add_necessary_information(rooms, current_user)
+    rooms.map do |r|
       room = r.attributes
       room[:user] = r.users.find { |u| u.id != current_user.id }
       room[:last_message] = r.messages.last

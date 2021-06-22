@@ -18,6 +18,7 @@
                 rows="2"
               ></v-textarea>
               <v-btn
+                type="button"
                 :disabled="!message"
                 class="ml-3"
                 depressed
@@ -44,38 +45,67 @@ export default {
   data() {
     return {
       messages: [],
-      message: ''
+      message: '',
+      pagination: {
+        count: 0,
+        current: 0,
+        limit_value: 0,
+        next: 0,
+        pages: 0,
+        previous: null
+      }
     }
   },
   mounted() {
-    this.getMessages()
+    this.$refs.chatContainer.addEventListener('scroll', this.handleScroll)
+
+    this.getMessages({ page: 1 })
     this.updateMessages()
   },
   methods: {
-    async updateMessages() {
-      const roomId = this.$route.params.id
+    async handleScroll() {
+      const ref = this.$refs.chatContainer
+      if (ref) {
+        const beforeHeight = ref.scrollHeight
 
-      await this.$axios.put(`/api/v1/rooms/${roomId}/messages`, {})
+        if (ref.scrollTop === 0 && this.pagination.next !== null) {
+          await this.getMessages({ page: this.pagination.next }, true)
+
+          ref.scrollTop = ref.scrollHeight - beforeHeight
+        }
+      }
     },
-    async getMessages() {
-      const roomId = this.$route.params.id
+    async getMessages(params, isNext) {
+      const response = await this.$axios.get(
+        `/api/v1/rooms/${this.$route.params.id}`,
+        { params }
+      )
 
-      const response = await this.$axios.get(`/api/v1/rooms/${roomId}`)
+      if (isNext) {
+        this.messages = response.data.room.messages.concat(this.messages)
+      } else {
+        this.messages = response.data.room.messages
+        this.scrollToBottom()
+      }
 
-      this.messages.push(...response.data.room.messages)
-      this.scrollToBottom()
+      this.pagination = response.data.pagination
+    },
+    async updateMessages() {
+      await this.$axios.put(
+        `/api/v1/rooms/${this.$route.params.id}/messages`,
+        {}
+      )
     },
     async sendMessage() {
-      const roomId = this.$route.params.id
-
       const response = await this.$axios.post(
-        `/api/v1/rooms/${roomId}/messages`,
+        `/api/v1/rooms/${this.$route.params.id}/messages`,
         {
           body: this.message
         }
       )
 
       this.messages.push(response.data.message)
+      this.message = ''
       this.scrollToBottom()
     },
     scrollToBottom() {

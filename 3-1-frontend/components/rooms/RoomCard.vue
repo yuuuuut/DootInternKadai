@@ -8,11 +8,12 @@
         <v-avatar>
           <img :src="room.user.image" />
         </v-avatar>
-        <div class="ml-3">{{ room.user.name }}</div>
-        <v-divider class="mx-2" vertical></v-divider>
-        <div v-if="room.last_message" class="ml-1">
-          <div class="grey--text text--darken-2">
-            {{ room.last_message.body | filterMessage }}
+        <div class="d-flex flex-column ml-3">
+          <div>{{ room.user.name }}</div>
+          <div v-if="room.last_message">
+            <div class="grey--text text--darken-2">
+              {{ room.last_message.body | filterMessage }}
+            </div>
           </div>
         </div>
       </div>

@@ -7,6 +7,18 @@
         </div>
       </v-col>
     </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <div
+          v-if="pagination.current < pagination.pages"
+          class="d-flex justify-center"
+        >
+          <v-btn class="ma-2" color="success" @click="nextPage">
+            もっと読み込む
+          </v-btn>
+        </div>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -19,17 +31,35 @@ export default {
   },
   data() {
     return {
-      rooms: []
+      rooms: [],
+      page: 1,
+      pagination: {
+        count: 0,
+        current: 0,
+        limit_value: 0,
+        next: 0,
+        pages: 0,
+        previous: null
+      }
     }
   },
   mounted() {
-    this.getRooms()
+    this.getRooms({ page: 1 })
   },
   methods: {
-    async getRooms() {
-      const response = await this.$axios.get(`/api/v1/rooms`)
+    async getRooms(params, isNext) {
+      const response = await this.$axios.get('/api/v1/rooms', { params })
 
-      this.rooms.push(...response.data.rooms)
+      if (isNext) {
+        this.rooms = this.rooms.concat(response.data.rooms)
+      } else {
+        this.rooms = response.data.rooms
+      }
+
+      this.pagination = response.data.pagination
+    },
+    async nextPage() {
+      await this.getRooms({ page: this.pagination.next }, true)
     }
   }
 }
