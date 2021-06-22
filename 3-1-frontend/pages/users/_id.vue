@@ -9,7 +9,7 @@
           <div class="text-h4 grey--text text--darken-2 my-7">
             {{ user.name }}
           </div>
-          <div v-if="currentUser.id !== user.id">
+          <div v-if="currentUser && currentUser.id !== user.id">
             <div v-if="user.isRoom">
               <nuxt-link :to="`/rooms/${user.roomId}`">
                 <v-btn color="primary">

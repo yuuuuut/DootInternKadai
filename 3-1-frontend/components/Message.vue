@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="currentUser">
     <v-row>
       <v-col md="6">
         <div v-if="message.user_id !== currentUser.id" class="ma-5">

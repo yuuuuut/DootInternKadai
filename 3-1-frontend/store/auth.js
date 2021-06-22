@@ -40,9 +40,13 @@ export const actions = {
     context.commit('setUser', null)
   },
   async currentUser(context) {
-    const response = await this.$axios.get('/api/v1/auth/sessions')
+    try {
+      const response = await this.$axios.get('/api/v1/auth/sessions')
 
-    const user = response.data || null
-    context.commit('setUser', user)
+      const user = response.data || null
+      context.commit('setUser', user)
+    } catch (e) {
+      context.commit('setUser', null)
+    }
   }
 }
