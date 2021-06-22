@@ -16,12 +16,14 @@
             <v-col lg="12">
               <v-text-field
                 v-model="loginForm.email"
+                type="email"
                 label="メールアドレス"
                 outlined
               ></v-text-field>
 
               <v-text-field
                 v-model="loginForm.password"
+                type="password"
                 label="パスワード"
                 outlined
               ></v-text-field>
