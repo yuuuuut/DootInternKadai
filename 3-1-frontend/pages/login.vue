@@ -49,8 +49,8 @@ export default {
   data() {
     return {
       loginForm: {
-        email: '',
-        password: ''
+        email: 'test1@test.com',
+        password: 'password'
       },
       errorMessages: null
     }
