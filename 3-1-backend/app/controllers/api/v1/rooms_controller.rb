@@ -11,7 +11,11 @@ class Api::V1::RoomsController < Api::V1::ApplicationController
     @pagination = resources_with_pagination(@rooms)
   end
 
-  def show; end
+  def show
+    messages = @room.messages.preload(:user).order(created_at: :desc).page(params[:page]).per(6)
+    @messages = messages.reverse
+    @pagination = resources_with_pagination(messages)
+  end
 
   def create
     @room = Room.room_with_entry_create(current_user.id, params[:user_id])
