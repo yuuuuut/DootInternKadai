@@ -22,18 +22,21 @@
 
               <v-text-field
                 v-model="registerForm.email"
+                type="email"
                 label="メールアドレス"
                 outlined
               ></v-text-field>
 
               <v-text-field
                 v-model="registerForm.password"
+                type="password"
                 label="パスワード"
                 outlined
               ></v-text-field>
 
               <v-text-field
                 v-model="registerForm.password_confirmation"
+                type="password"
                 label="パスワード(確認)"
                 outlined
               ></v-text-field>
