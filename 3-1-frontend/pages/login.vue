@@ -46,6 +46,7 @@
 import { mapActions } from 'vuex'
 
 export default {
+  // middleware: 'authenticated',
   data() {
     return {
       loginForm: {

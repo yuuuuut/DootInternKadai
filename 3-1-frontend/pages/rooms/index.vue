@@ -1,25 +1,36 @@
 <template>
-  <v-container>
-    <v-row no-gutters>
-      <v-col>
-        <div v-for="room in rooms" :key="room.id">
-          <RoomCard :room="room" />
-        </div>
-      </v-col>
-    </v-row>
-    <v-row no-gutters>
-      <v-col>
-        <div
-          v-if="pagination.current < pagination.pages"
-          class="d-flex justify-center"
-        >
-          <v-btn class="ma-2" color="success" @click="nextPage">
-            もっと読み込む
-          </v-btn>
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+  <div v-if="!pageLoading">
+    <v-container>
+      <v-row no-gutters>
+        <v-col>
+          <div v-if="rooms.length">
+            <div v-for="room in rooms" :key="room.id">
+              <RoomCard :room="room" />
+            </div>
+          </div>
+          <div v-else class="d-flex flex-column align-center">
+            <p>Roomがありません。</p>
+            <p>
+              <nuxt-link to="/users">こちら</nuxt-link
+              >からチャット相手を探しましょう。
+            </p>
+          </div>
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col>
+          <div
+            v-if="pagination.current < pagination.pages"
+            class="d-flex justify-center"
+          >
+            <v-btn class="ma-2" color="success" @click="nextPage">
+              もっと読み込む
+            </v-btn>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -32,6 +43,7 @@ export default {
   data() {
     return {
       rooms: [],
+      pageLoading: true,
       page: 1,
       pagination: {
         count: 0,
@@ -57,6 +69,7 @@ export default {
       }
 
       this.pagination = response.data.pagination
+      this.pageLoading = false
     },
     async nextPage() {
       await this.getRooms({ page: this.pagination.next }, true)

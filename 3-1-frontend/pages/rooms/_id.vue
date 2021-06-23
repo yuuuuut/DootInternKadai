@@ -57,10 +57,13 @@ export default {
     }
   },
   mounted() {
-    this.$refs.chatContainer.addEventListener('scroll', this.handleScroll)
-
     this.getMessages({ page: 1 })
     this.updateMessages()
+
+    this.$refs.chatContainer.addEventListener('scroll', this.handleScroll)
+  },
+  beforeDestroy() {
+    this.$refs.chatContainer.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
     async handleScroll() {

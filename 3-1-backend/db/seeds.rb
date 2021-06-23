@@ -10,12 +10,13 @@ user2 = User.create!(
   password: 'password'
 )
 
-user3 = User.create!(
-  name: 'TestUser3',
-  email: 'Test3@Test.com',
-  password: 'password'
-)
-
+10.times do |n|
+  User.create!(
+    name: "TestUser#{n + 3}",
+    email: "Test#{n + 3}@Test.com",
+    password: 'password'
+  )
+end
 
 room = Room.create!
 
