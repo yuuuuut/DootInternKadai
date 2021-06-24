@@ -23,7 +23,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
               "user" => {
                 "id" => user.id,
                 "name" => user.name,
-                "image" => "https://cdn.vuetifyjs.com/images/john.jpg"
+                "image" => Variable::Default_image,
               }
             }
           ],
@@ -78,7 +78,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
                 "user_id" => current_user.id,
                 "user" => {
                   "id" => current_user.id,
-                  "image" => "https://cdn.vuetifyjs.com/images/john.jpg",
+                  "image" => Variable::Default_image,
                   "name" => current_user.name
                 }
               }

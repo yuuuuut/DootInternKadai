@@ -5,7 +5,7 @@ json.rooms @add_information_rooms do |room|
   json.user do
     json.id    room[:user][:id]
     json.name  room[:user][:name]
-    json.image room[:user][:image] || 'https://cdn.vuetifyjs.com/images/john.jpg'
+    json.image room[:user][:image] || Variable::Default_image
   end
 
   if room[:last_message].present?

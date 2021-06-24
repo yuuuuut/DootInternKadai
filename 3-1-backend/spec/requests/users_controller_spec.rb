@@ -18,17 +18,17 @@ RSpec.describe Api::V1::UsersController, type: :request do
             {
               "id" => users[0].id,
               "name" => users[0].name,
-              "image" => "https://cdn.vuetifyjs.com/images/john.jpg"
+              "image" => Variable::Default_image
             },
             {
               "id" => users[1].id,
               "name" => users[1].name,
-              "image" => "https://cdn.vuetifyjs.com/images/john.jpg"
+              "image" => Variable::Default_image
             },
             {
               "id" => users[2].id,
               "name" => users[2].name,
-              "image" => "https://cdn.vuetifyjs.com/images/john.jpg"
+              "image" => Variable::Default_image
             }
           ],
           "pagination" => {
@@ -63,7 +63,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
           "user" => {
             "id" => current_user.id,
             "name" => current_user.name,
-            "image" => "https://cdn.vuetifyjs.com/images/john.jpg"
+            "image" => Variable::Default_image
           }
         )
       end
@@ -78,7 +78,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
           "user" => {
             "id" => current_user.id,
             "name" => current_user.name,
-            "image" => "https://cdn.vuetifyjs.com/images/john.jpg"
+            "image" => Variable::Default_image
           }
         )
       end
@@ -93,7 +93,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
           "user" => {
             "id" => user.id,
             "name" => user.name,
-            "image" => "https://cdn.vuetifyjs.com/images/john.jpg",
+            "image" => Variable::Default_image,
             "isRoom" => false,
             "roomId" => ''
           }
@@ -113,7 +113,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
           "user" => {
             "id" => user.id,
             "name" => user.name,
-            "image" => "https://cdn.vuetifyjs.com/images/john.jpg",
+            "image" => Variable::Default_image,
             "isRoom" => true,
             "roomId" => room.id
           }

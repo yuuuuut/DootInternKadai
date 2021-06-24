@@ -9,7 +9,7 @@ json.room do
     json.user do
       json.id    message.user.id
       json.name  message.user.name
-      json.image message.user.image || 'https://cdn.vuetifyjs.com/images/john.jpg'
+      json.image message.user.image || Variable::Default_image
     end
   end
 end
