@@ -1,15 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::UsersController, type: :request do
-  let(:json) { JSON.parse(response.body)}
+RSpec.describe Api::V1::RoomsController, type: :request do
+  let(:json) { JSON.parse(response.body) }
   let(:current_user) { create(:user) }
   let(:user) { create(:user) }
+  let(:room) { create(:room) }
+  let(:auth_headers) { current_user.create_new_auth_token }
+
+  let!(:entry1) { create(:entry, user: current_user, room: room ) }
+  let!(:entry2) { create(:entry, user: user, room: room ) }
 
   describe 'GET /rooms' do
-    let(:room) { create(:room) }
-    let(:auth_headers) { current_user.create_new_auth_token }
-    let!(:e1) { create(:entry, user: current_user, room: room ) }
-    let!(:e2) { create(:entry, user: user, room: room ) }
     context "認証済みのユーザーの場合" do
       it '正しいjsonを返すこと' do
         get "/api/v1/rooms", headers: auth_headers
@@ -49,12 +50,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
   end
 
   describe 'GET /rooms/:id/' do
-    let(:room) { create(:room) }
-    let(:auth_headers) { current_user.create_new_auth_token }
-
     let!(:message) { create(:message, user: current_user, room: room ) }
-    let!(:e1) { create(:entry, user: current_user, room: room ) }
-    let!(:e2) { create(:entry, user: user, room: room ) }
     context "roomに所属しているuserの場合" do
       it '正しいjsonを返すこと' do
         get "/api/v1/rooms/#{room.id}", headers: auth_headers
@@ -108,7 +104,6 @@ RSpec.describe Api::V1::UsersController, type: :request do
   end
 
   describe 'POST /users/:id/rooms' do
-    let(:auth_headers) { current_user.create_new_auth_token }
     context "認証済みのユーザーの場合" do
       it 'roomを作成できること' do
         post "/api/v1/users/#{user.id}/rooms", params: {}, headers: auth_headers
